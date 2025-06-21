@@ -10,7 +10,7 @@ import copy
 import matplotlib.pyplot as plt
 import sympy 
 from sympy.printing import latex
-
+from sympy import Symbol
 
 def detect_separability(model, x, mode='add', score_th=1e-2, res_th=1e-2, n_clusters=None, bias=0., verbose=False):
     '''
