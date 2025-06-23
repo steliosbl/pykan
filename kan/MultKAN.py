@@ -706,9 +706,10 @@ class MultKAN(nn.Module):
         >>> model.update_grid_from_samples(x)
         >>> print(model.act_fun[0].grid)
         ''' 
+        mode = 'grid' if self.device == 'cuda' else 'sample'
         for l in range(self.depth):
             self.get_act(x)
-            self.act_fun[l].update_grid_from_samples(self.acts[l])
+            self.act_fun[l].update_grid_from_samples(self.acts[l], mode=mode) # SBL - Use mode "grid" for spline grid update if on CUDA, otherwise use default
             
     def update_grid(self, x):
         '''
