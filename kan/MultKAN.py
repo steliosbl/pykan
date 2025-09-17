@@ -1402,11 +1402,11 @@ class MultKAN(nn.Module):
             
         return old_save_act, old_symbolic_enabled
     
-    def get_params(self):
-        '''
-        Get parameters
-        '''
-        return self.parameters()
+    # def get_params(self): # SBL
+    #     '''
+    #     Get parameters
+    #     '''
+    #     return self.parameters()
         
             
     def fit(self, dataset, opt="LBFGS", steps=100, log=1, lamb=0., lamb_l1=1., lamb_entropy=2., lamb_coef=0., lamb_coefdiff=0., update_grid=True, grid_update_num=10, loss_fn=None, lr=1.,start_grid_update_step=-1, stop_grid_update_step=50, batch=-1,
@@ -1495,9 +1495,9 @@ class MultKAN(nn.Module):
         grid_update_freq = int(stop_grid_update_step / grid_update_num)
 
         if opt == "Adam":
-            optimizer = torch.optim.Adam(self.get_params(), lr=lr)
+            optimizer = torch.optim.Adam(self.parameters(), lr=lr) # SBL
         elif opt == "LBFGS":
-            optimizer = LBFGS(self.get_params(), lr=lr, history_size=10, line_search_fn="strong_wolfe", tolerance_grad=1e-32, tolerance_change=1e-32, tolerance_ys=1e-32)
+            optimizer = LBFGS(self.parameters(), lr=lr, history_size=10, line_search_fn="strong_wolfe", tolerance_grad=1e-32, tolerance_change=1e-32, tolerance_ys=1e-32) # SBL
 
         results = {}
         results['train_loss'] = []
