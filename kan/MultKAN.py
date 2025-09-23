@@ -2100,7 +2100,7 @@ class MultKAN(nn.Module):
                 search range of a
             b_range : tuple
                 search range of b
-            lib : list of str
+            lib : list of str or dict 
                 library of candidate symbolic functions
             topk : int
                 the number of top functions displayed
@@ -2132,6 +2132,8 @@ class MultKAN(nn.Module):
         
         if lib == None:
             symbolic_lib = SYMBOLIC_LIB
+        elif isinstance(lib, dict): # SBL - allow user-defined library
+            symbolic_lib = lib
         else:
             symbolic_lib = {}
             for item in lib:
