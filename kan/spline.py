@@ -114,7 +114,9 @@ def curve2coef(x_eval, y_eval, grid, k):
     
     #coef = torch.linalg.lstsq(mat, y_eval, driver='gelsy' if device == 'cpu' else 'gels').solution[:,:,:,0]
     try:
-        coef = torch.linalg.lstsq(mat, y_eval).solution[:,:,:,0]
+        coef = torch.linalg.lstsq(mat.to('cpu'), y_eval.to('cpu')).solution[:,:,:,0].to(device)
+    except NotImplementedError as e: # SBL 
+        raise e
     except:
         print('lstsq failed')
     
